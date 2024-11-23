@@ -3,7 +3,7 @@ import urequests as requests
 
 def get_user_data(uid):
     try:
-        url = f'http://192.168.1.4:5000/api/user/{uid}'  # Modifiez cette URL si nécessaire
+        url = f'http://192.168.1.4:5000/api/user/{uid}'  # Modify cthis url every time you connect to mongodb
         response = requests.get(url)
         if response.status_code == 200:
             data = response.json()
