@@ -3,9 +3,9 @@ from pymongo import MongoClient
 
 app = Flask(__name__)
 
-# Connexion à MongoDB
-MONGODB_URI = "mongodb+srv://mohamedalimejri108:LAn1P1JtlS4LjVja@rfid.xv6bo.mongodb.net/"
-#MONGODB_URI = "mongodb+srv://bechir256haboubiS:EgtCABkFnDjRdJO6@gymmanagement.gqk3a.mongodb.net/"
+#  MongoDB connection
+MONGODB_URI = "mongodb+srv://"write your mongodb url"@rfid.xv6bo.mongodb.net/"
+
 client = MongoClient(MONGODB_URI)
 db = client["GymManagement"]
 user_data_collection1 = db["UserData"]
@@ -40,10 +40,10 @@ def get_all_data_for_user(uid):
        data_entries = list(user_data_collection2.find({"uid": uid}))
 
 
-       # Convertir chaque document MongoDB en un format JSON sérialisable
+       
        data_list = []
        for entry in data_entries:
-           entry["_id"] = str(entry["_id"])  # Convertir ObjectId en chaîne
+           entry["_id"] = str(entry["_id"])  
            data_list.append(entry)
 
 
@@ -58,11 +58,11 @@ def add_user_data():
     print("Reçu une requête POST pour ajouter des données utilisateur")
     try:
         data = request.json
-        # Validation des données reçues
+        #data validation 
         if not data or 'uid' not in data or 'nom' not in data or 'prenom' not in data:
             return jsonify({"status": "error", "message": "Données manquantes"}), 400
         
-        # Insérer les données dans la collection
+        # data insertion
         user_data_collection2.insert_one(data)
         response = {"status": "success", "message": "Données ajoutées avec succès"}
         print(response)
